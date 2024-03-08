@@ -1,22 +1,29 @@
 alert('Boas vindas ao jogo de adivinhação!');
 
-let numeroSecreto = 4; 
+let numeroLimite = 10;
+let numeroSecreto = Math.floor(Math.random() * numeroLimite + 1); 
 console.log(numeroSecreto);
 let palpite; 
+let tentativas = 0;
 
 while(palpite !== numeroSecreto) {
+    tentativas++;
+    palpite = parseInt(prompt(`Digite um número entre 0 e ${numeroLimite}:`));
     
-    palpite = parseInt(prompt('Digite um número entre 0 e 10:'));
-    
-    if (palpite == numeroDaSorte) {
-        alert('Parabéns, você acertou! o número secreto é: ' + numeroSecreto);
+    if (palpite == numeroSecreto) {
+        let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
+        alert(`Parabéns, você descobriu o número secreto ${numeroSecreto} com ${tentativas} ${palavraTentativa}!`);
+        break;
+
     } else {
         let maior = numeroSecreto > palpite;
         
         if (maior) {
             alert(`O número secreto é maior que ${palpite}`);
+
         } else {
             alert(`O número secreto é menor que ${palpite}`);
+
         }
     }
 }
