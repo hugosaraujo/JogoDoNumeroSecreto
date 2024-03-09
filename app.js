@@ -1,9 +1,7 @@
-
 let numeroMaximo = 10;
 let tentativas = 1;
 
-exibirTexto('h1', 'Jogo do Número Secreto');
-exibirTexto('p', `Tente adivinhar o número secreto entre 1 e ${numeroMaximo}`);
+exibirMensagemInicial();
 
 let numeroSecreto = sorteiaNumero(numeroMaximo);
 
@@ -18,12 +16,14 @@ function verificarChute(){
         exibirTexto('h1', 'Acertou!');
         exibirTexto('p', mensagemAcerto);
 
+        document.getElementById('reiniciar').removeAttribute('disabled');
+        
     } else {
         let maior = chute > numeroSecreto;
-        let mensagem = maior ? 'menor' : 'maior';
+        let palavraMaiorOuMenor = maior ? 'menor' : 'maior';
 
         exibirTexto('h1', 'Errou!');
-        exibirTexto('p', `O número secreto é ${mensagem} que ${chute}`);
+        exibirTexto('p', `O número secreto é ${palavraMaiorOuMenor} que ${chute}`);
     }
     tentativas++;
     limparCampo();
@@ -39,7 +39,21 @@ function sorteiaNumero(numeroMaximo){
 }
 
 function limparCampo(){
-    document.querySelector('input').value = '';
+    chute = document.querySelector('input');
+    chute.value = '';
+}
+
+function exibirMensagemInicial(){
+    exibirTexto('h1', 'Jogo do Número Secreto');
+    exibirTexto('p', `Tente adivinhar o número secreto entre 1 e ${numeroMaximo}`);    
+}
+
+function reiniciarJogo(){
+   numeroSecreto = sorteiaNumero(numeroMaximo);
+   limparCampo();
+   tentativas = 1;
+   exibirMensagemInicial();
+   document.getElementById('reiniciar').setAttribute('disabled', true);
 }
 
 
