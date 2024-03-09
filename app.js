@@ -1,23 +1,46 @@
-let verificarChute = () => {
+
+let numeroMaximo = 10;
+let tentativas = 1;
+
+exibirTexto('h1', 'Jogo do Número Secreto');
+exibirTexto('p', `Tente adivinhar o número secreto entre 1 e ${numeroMaximo}`);
+
+let numeroSecreto = sorteiaNumero(numeroMaximo);
+
+function verificarChute(){
     let chute = document.querySelector('input').value;
-    console.log(chute == numeroSecreto);
+    let acertou = chute == numeroSecreto;
+
+    if(acertou) {
+        let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
+        let mensagemAcerto = `Parabéns, você acertou o número secreto em ${tentativas} ${palavraTentativa}!`;
+
+        exibirTexto('h1', 'Acertou!');
+        exibirTexto('p', mensagemAcerto);
+
+    } else {
+        let maior = chute > numeroSecreto;
+        let mensagem = maior ? 'menor' : 'maior';
+
+        exibirTexto('h1', 'Errou!');
+        exibirTexto('p', `O número secreto é ${mensagem} que ${chute}`);
+    }
+    tentativas++;
+    limparCampo();
 }
 
-let exibirTexto = (tag, texto) => {
+function exibirTexto(tag, texto){
     let mensagem = document.querySelector(tag);
     mensagem.innerHTML = texto;
 }
 
-let sorteiaNumero = (numeroMaximo) => {
+function sorteiaNumero(numeroMaximo){
     return parseInt(Math.random() * numeroMaximo + 1);
 }
 
-let numeroMaximo = 10;
-
-exibirTexto('h1', 'Jogo do Número Secreto');
-exibirTexto('p', `Tente adivinhar o número secreto entre 0 e ${numeroMaximo}`);
-
-let numeroSecreto = 10;
+function limparCampo(){
+    document.querySelector('input').value = '';
+}
 
 
 
