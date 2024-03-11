@@ -1,3 +1,7 @@
+//impedir que um numero que já foi sorteado seja sorteado novamente
+//desabilitar o botão chute quando acertar o número secreto
+
+let listaDeNumerosSorteados = [];
 let numeroMaximo = 10;
 let tentativas = 1;
 
@@ -35,7 +39,16 @@ function exibirTexto(tag, texto){
 }
 
 function sorteiaNumero(numeroMaximo){
-    return parseInt(Math.random() * numeroMaximo + 1);
+    let numeroAleatorio = parseInt(Math.random() * numeroMaximo + 1);
+
+    if(listaDeNumerosSorteados.includes(numeroAleatorio)){
+        return sorteiaNumero(numeroMaximo);
+    } else {
+        listaDeNumerosSorteados.push(numeroAleatorio);
+        console.log(listaDeNumerosSorteados);
+        return numeroAleatorio;    
+    }
+    
 }
 
 function limparCampo(){
@@ -55,9 +68,6 @@ function reiniciarJogo(){
    exibirMensagemInicial();
    document.getElementById('reiniciar').setAttribute('disabled', true);
 }
-
-
-
 
 
 /*
